@@ -9,7 +9,6 @@ const AUTH_ERROR = { message: "Authentication Error" };
 export const isAuth = async (req, res, next) => {
   // 헤더 키의 벨류
   const authHeader = req.get("Authorization");
-  console.log(authHeader, "authHeader");
   // 존재하지 않거나, 우리가 지정한 것 처럼 Bearer로 시작하지 않는 경우 -> 우리가 검증할 수 없음
   if (!(authHeader && authHeader.startsWith("Bearer "))) {
     return res.status(404).json(AUTH_ERROR);

@@ -1,3 +1,5 @@
+import { db } from "../db/database.js";
+
 const moods = [
   {
     moodId: "1",

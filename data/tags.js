@@ -1,3 +1,4 @@
+import { db } from "../db/database.js";
 const tags = [
   {
     tagId: "1",
@@ -40,4 +41,12 @@ export async function getAll() {
 export async function getById(id) {
   const tag = tags.find((x) => x.tagId === id);
   return tag;
+}
+
+export async function create(tagName) {
+  return db
+    .execute("INSERT INTO tags (tagName) VALUES (?)", [tagName])
+    .then((result) => {
+      return result[0].insertId;
+    });
 }

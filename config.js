@@ -27,5 +27,6 @@ export const config = {
     database: required("DB_DATABASE"),
     password: required("DB_PASSWORD"),
     port: parseInt(required("DB_PORT"), 3306),
+    charset: required("DB_CHARSET"),
   },
 };

@@ -15,3 +15,14 @@ export async function getTag(req, res) {
     res.status(404).json({ message: `tag id ${id} not found` });
   }
 }
+
+export async function createTag(req, res) {
+  const { tagName } = req.body;
+
+  const tagId = await tagRepository.create(tagName);
+  if (tagId) {
+    res.status(200).json({ tagId });
+  } else {
+    res.status(403).json({ message: "check your tag name again" });
+  }
+}
