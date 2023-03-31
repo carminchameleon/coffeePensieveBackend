@@ -2,17 +2,10 @@
 //   userId: String; // 유저 아이디
 //   commitId: String; // 커밋 아이디
 //   createdAt: Date; // 커밋 생성 날짜
-//   order: Number; // 몇번째 커피인지
 
-//   drinkTemp: String; // iced / hot
 //   drinkId: String; // 음료 종류
-//   drinkName: String; // 음료 이름
-
 //   moodId: String; // 기분 종류
-//   moodName: String; // 무드 아이디
-
 //   statusId: [String]; // 상태 종류
-//   statusName: [String]; // 상태 이름
 //   memo: String; // 메모
 // }
 
@@ -25,8 +18,6 @@ var commits = [
     userId: "carmen",
     commitId: "carmen0",
     createdAt: Date.now().toString(),
-    order: 0,
-
     drinkId: "1",
     moodId: "1",
     tags: ["1", "4"],
@@ -36,7 +27,6 @@ var commits = [
     userId: "carmen",
     commitId: "carmen1",
     createdAt: Date.now().toString(),
-    order: 1,
     drinkId: "1",
     moodId: "2",
     tags: ["1", "3"],
@@ -46,8 +36,6 @@ var commits = [
     userId: "lea",
     commitId: "1",
     createdAt: Date.now().toString(),
-    order: 0,
-
     drinkId: "1",
     moodId: "3",
     tags: ["2", "3"],

@@ -1,3 +1,4 @@
+import { db } from "../db/database.js";
 let users = [
   {
     userId: "0",
@@ -16,15 +17,57 @@ let users = [
 ];
 
 export async function findByUsername(username) {
-  return users.find((x) => x.username === username);
+  //모든 항목을 가져올건데 username이 같은걸 가져올거야
+  return db
+    .execute("SELECT * FROM users WHERE username=?", [username])
+    .then((result) => {
+      return result[0][0];
+    });
 }
 
 export async function findById(userId) {
-  return users.find((x) => x.userId === userId);
+  return db
+    .execute("SELECT * FROM users WHERE userId=?", [userId])
+    .then((result) => {
+      return result[0][0];
+    });
 }
 
 export async function createUser(user) {
-  const created = { ...user, userId: Date.now().toString() };
-  users.push(created);
-  return created.userId;
+  const {
+    username,
+    password,
+    nickname,
+    url,
+    wakeUpTime,
+    bedTime,
+    limitCups,
+    limitTime,
+    wakeUpReminder,
+    bedTimeReminder,
+    limitReminder,
+  } = user;
+  return db
+    .execute(
+      "INSERT INTO users (username, password, nickname, url, wakeUpTime, bedTime, limitCups, limitTime, wakeUpReminder, bedTimeReminder,limitReminder) VALUES (?,?,?,?,?,?,?,?,?,?,?)",
+      [
+        username,
+        password,
+        nickname,
+        url,
+        wakeUpTime,
+        bedTime,
+        limitCups,
+        limitTime,
+        wakeUpReminder,
+        bedTimeReminder,
+        limitReminder,
+      ]
+    )
+    .then((result) => {
+      return result[0].insertId;
+    });
+  // const created = { ...user, userId: Date.now().toString() };
+  // users.push(created);
+  // return created.userId;
 }

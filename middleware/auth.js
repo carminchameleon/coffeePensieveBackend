@@ -9,6 +9,7 @@ const AUTH_ERROR = { message: "Authentication Error" };
 export const isAuth = async (req, res, next) => {
   // 헤더 키의 벨류
   const authHeader = req.get("Authorization");
+  console.log(authHeader, "authHeader");
   // 존재하지 않거나, 우리가 지정한 것 처럼 Bearer로 시작하지 않는 경우 -> 우리가 검증할 수 없음
   if (!(authHeader && authHeader.startsWith("Bearer "))) {
     return res.status(404).json(AUTH_ERROR);
@@ -17,13 +18,15 @@ export const isAuth = async (req, res, next) => {
   // 토큰 부분
   const token = authHeader.split(" ")[1];
   //  토큰이 유효한지에 대해서 검사
+
   jwt.verify(token, config.jwt.secretKey, async (error, decoded) => {
     if (error) {
       return res.status(401).json(AUTH_ERROR);
     }
     //사용자를 데이터베이스에서 찾기
+
     const user = await authRepository.findById(decoded.userId);
-    console.log("현재 로그인된 userId", user.userId);
+
     if (!user) {
       return res.status(401).json(AUTH_ERROR);
     }
