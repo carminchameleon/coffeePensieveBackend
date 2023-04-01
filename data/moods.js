@@ -1,57 +1,15 @@
 import { db } from "../db/database.js";
 
-const moods = [
-  {
-    moodId: "1",
-    moodName: "happy",
-    emoji: "😊",
-  },
-  {
-    moodId: "2",
-    moodName: "excited",
-    emoji: "😆",
-  },
-  {
-    moodId: "3",
-    moodName: "grateful",
-    emoji: "🥰",
-  },
-  {
-    moodId: "4",
-    moodName: "relaxed",
-    emoji: "😌",
-  },
-  {
-    moodId: "5",
-    moodName: "tired",
-    emoji: "🥱",
-  },
-  {
-    moodId: "6",
-    moodName: "anxious",
-    emoji: "🙄",
-  },
-  {
-    moodId: "7",
-    moodName: "angry",
-    emoji: "😠",
-  },
-  {
-    moodId: "8",
-    moodName: "stressed",
-    emoji: "🤯",
-  },
-  {
-    moodId: "9",
-    moodName: "sad",
-    emoji: "😭",
-  },
-];
-
 export async function getAll() {
-  return moods;
+  return db.execute("SELECT * FROM moods").then((result) => {
+    return result[0];
+  });
 }
 
 export async function getById(id) {
-  return moods.find((x) => x.moodId === id);
+  return db
+    .execute("SELECT * FROM moods WHERE moodId=?", [id])
+    .then((result) => {
+      return result[0][0];
+    });
 }

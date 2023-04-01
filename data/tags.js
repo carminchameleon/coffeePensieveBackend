@@ -35,12 +35,15 @@ const tags = [
 ];
 
 export async function getAll() {
-  return tags;
+  return db.execute("SELECT * FROM tags").then((result) => {
+    return result[0];
+  });
 }
 
 export async function getById(id) {
-  const tag = tags.find((x) => x.tagId === id);
-  return tag;
+  return db.execute("SELECT * FROM tags WHERE tagId=?", [id]).then((result) => {
+    return result[0][0];
+  });
 }
 
 export async function create(tagName) {
