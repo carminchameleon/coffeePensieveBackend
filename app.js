@@ -13,13 +13,20 @@ import commitsRouter from "./router/commits.js";
 import authRouter from "./router/auth.js";
 import { config } from "./config.js";
 import { db } from "./db/database.js";
+import rateLimit from "./middleware/rate-limiter.js";
 
 const app = express();
+
+const corsOption = {
+  origin: config.cors.allowedOrigin,
+  optionsSuccessStatus: 200,
+};
 
 app.use(express.json());
 app.use(helmet());
 app.use(morgan("tiny"));
-app.use(cors());
+app.use(cors(corsOption));
+app.use(rateLimit);
 
 app.use("/auth", authRouter);
 app.use("/drinks", drinksRouter);
@@ -40,7 +47,6 @@ app.use((error, req, res, next) => {
   res.sendStatus(500);
 });
 
-db.getConnection().then((connection) => {
-  console.log("DB IS CONNECTED");
-});
-app.listen(config.host.port);
+db.getConnection();
+console.log(`Server is started.....${new Date()}`);
+app.listen(config.port);

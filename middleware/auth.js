@@ -33,6 +33,7 @@ export const isAuth = async (req, res, next) => {
     // req 자체에 유저 아이디를 추가해준다.
     // req.custom 다른 콜백 함수에서 동일하게 계속 접근 하므로 아예 등록해주는 것
     req.userId = user.userId;
+    req.token = token;
     next();
   });
 };
